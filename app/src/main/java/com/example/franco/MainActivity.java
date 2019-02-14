@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
         //ovvero una costante che crea il "collegamento" alle risorse
         Log.d("viki", "metodo onCreate");
 
+        Toolbar myToolbar= findViewById(R.id.customToolbar);
+
     }
     public void myTap(View v) {
 
@@ -24,6 +27,12 @@ public class MainActivity extends AppCompatActivity {
         Intent intent=new Intent(MainActivity.this, SecondActivity.class);
         startActivity(intent);
         Log.d("myTap", "sono loggata");
+    }
+
+    public void memoryTap(View v){
+        Button buttonM=findViewById(R.id.button);
+        Intent intent=new Intent(MainActivity.this, fourthActivity.class);
+        startActivity(intent);
     }
 
 

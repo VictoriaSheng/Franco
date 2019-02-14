@@ -1,6 +1,8 @@
 package com.example.franco;
 
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +45,8 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.serversearch:
                 mTextView.setText("Pippo");
                 //importo gli users dal finto server
-                addPersons();
+                //addPersons();
+                new LongOperation().execute("");
             break;
         }
 
@@ -56,6 +60,7 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
         for(i=0;i< users.size(); i++){
             m.addUser(users.get(i));
         }
+        Toast.makeText(getApplicationContext(),"Utenti scaricati", Toast.LENGTH_LONG).show();
     }
 
     private void createList() {
@@ -91,6 +96,41 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
         startActivity(intent);
     }
 
+    //<String, Void, String> sono i valori nei parametri dei tre metodi : doInBackgroud, onProgressUpdate e onPostExecute
+    private class LongOperation extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String...params) {
+            //for (int i = 0; i < 5; i++) {
+
+                    //Thread.sleep(1000);
+                    Mymodel m=Mymodel.getMyModel();
+                    List<String> users= getStudentFromServer("www.ciao.com");
+                    int i;
+                    for(i=0;i< users.size(); i++){
+                        m.addUser(users.get(i));
+                    }
+
+
+            //}
+            return "Executed";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            //TextView txt = (TextView) findViewById(R.id.output);
+            //txt.setText("Executed"); // txt.setText(result);
+            // might want to change "executed" for the returned string passed
+            // into onPostExecute() but that is upto you
+            Toast.makeText(getApplicationContext(),"Utenti scaricati", Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        protected void onPreExecute() {}
+
+        @Override
+        protected void onProgressUpdate(Void... values) {}
+    }
 
     //Simulates to get data from a server, including a 5s delay
 
