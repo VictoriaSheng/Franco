@@ -1,6 +1,7 @@
 package com.example.franco;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,6 +34,12 @@ public class MainActivity extends AppCompatActivity {
         Button buttonM=findViewById(R.id.button);
         Intent intent=new Intent(MainActivity.this, fourthActivity.class);
         startActivity(intent);
+    }
+
+    public void myTapBrowser(View v){
+        Uri uriUrl = Uri.parse("https://www.netflix.com/it/");
+        Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+        startActivity(launchBrowser);
     }
 
 
